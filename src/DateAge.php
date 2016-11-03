@@ -131,6 +131,9 @@ class DateAge extends AbstractDate
 
         $now = new DateTime();
 
+        $now->setTime(23, 59, 59);
+        $date->setTime(0, 0, 0);
+
         if ($date > $now || $date->diff($now)->y < $this->minimum) {
             $this->error(self::NOT_GREATER);
 
