@@ -133,6 +133,42 @@ class Username extends ValidatorChain
     protected $blacklists = [];
 
     /**
+     * Constructor to prevent {@link Username} from being loaded more than once.
+     *
+     * @param array|\Traversable $options
+     *
+     * @throws \Xloit\Bridge\Zend\Validator\Exception\InvalidArgumentException
+     */
+    public function __construct($options = [])
+    {
+        if (isset($options['blacklists'])) {
+            $this->setBlacklists($options['blacklists']);
+        }
+
+        if (isset($options['pattern'])) {
+            $this->setPattern($options['pattern']);
+        }
+
+        if (isset($options['encoding'])) {
+            $this->setEncoding($options['encoding']);
+        }
+
+        if (isset($options['minimalLength'])) {
+            $this->setMinimalLength($options['minimalLength']);
+        } elseif (isset($options['min'])) {
+            $this->setMinimalLength($options['min']);
+        }
+
+        if (isset($options['maximumLength'])) {
+            $this->setMaximumLength($options['maximumLength']);
+        } elseif (isset($options['max'])) {
+            $this->setMaximumLength($options['max']);
+        }
+
+        parent::__construct();
+    }
+
+    /**
      * Returns the value of blacklists.
      *
      * @return array
@@ -296,7 +332,7 @@ class Username extends ValidatorChain
                 [
                     'haystack'         => $this->blacklists,
                     'messageTemplates' => [
-                        NotInArray::IN_ARRAY => self::NOT_ALLOWED
+                        NotInArray::IN_ARRAY => $this->messageTemplates[self::NOT_ALLOWED]
                     ]
                 ]
             );

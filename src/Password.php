@@ -58,11 +58,19 @@ class Password extends ValidatorChain
     const SYMBOL_NOT_CONTAIN = 'symbolNotContain';
 
     /**
+     *
+     *
+     * @return string
+     */
+    const NOT_ALLOWED = 'notAllowed';
+
+    /**
      * Error Message Templates
      *
      * @var array
      */
     protected $messageTemplates = [
+        self::NOT_ALLOWED                => 'The password provided contains words that are not allowed',
         self::UPPER_NOT_CONTAIN          => 'Password must include at least one uppercase letter!',
         self::LOWER_NOT_CONTAIN          => 'Password must include at least one lowercase letter!',
         self::DIGIT_NOT_CONTAIN          => 'Password must include at least one number!',
@@ -112,6 +120,89 @@ class Password extends ValidatorChain
      * @return boolean
      */
     protected $enableSymbol = true;
+
+    /**
+     *
+     *
+     * @return array
+     */
+    protected $blacklists = [];
+
+    /**
+     * Constructor to prevent {@link Password} from being loaded more than once.
+     *
+     * @param array|\Traversable $options
+     *
+     * @throws \Xloit\Bridge\Zend\Validator\Exception\InvalidArgumentException
+     */
+    public function __construct($options = [])
+    {
+        if (isset($options['blacklists'])) {
+            $this->setBlacklists($options['blacklists']);
+        }
+
+        if (isset($options['enableLowercase'])) {
+            $this->setEnableLowercase((bool) $options['enableLowercase']);
+        } elseif (isset($options['lowercase'])) {
+            $this->setEnableLowercase((bool) $options['lowercase']);
+        }
+
+        if (isset($options['enableUppercase'])) {
+            $this->setEnableUppercase((bool) $options['enableUppercase']);
+        } elseif (isset($options['uppercase'])) {
+            $this->setEnableUppercase((bool) $options['uppercase']);
+        }
+
+        if (isset($options['enableDigit'])) {
+            $this->setEnableDigit((bool) $options['enableDigit']);
+        } elseif (isset($options['digit'])) {
+            $this->setEnableDigit((bool) $options['digit']);
+        }
+
+        if (isset($options['enableSymbol'])) {
+            $this->setEnableSymbol((bool) $options['enableSymbol']);
+        } elseif (isset($options['symbol'])) {
+            $this->setEnableSymbol((bool) $options['symbol']);
+        }
+
+        if (isset($options['minimalLength'])) {
+            $this->setMinimalLength($options['minimalLength']);
+        } elseif (isset($options['min'])) {
+            $this->setMinimalLength($options['min']);
+        }
+
+        if (isset($options['maximumLength'])) {
+            $this->setMaximumLength($options['maximumLength']);
+        } elseif (isset($options['max'])) {
+            $this->setMaximumLength($options['max']);
+        }
+
+        parent::__construct();
+    }
+
+    /**
+     * Returns the value of blacklists.
+     *
+     * @return array
+     */
+    public function getBlacklists()
+    {
+        return $this->blacklists;
+    }
+
+    /**
+     * Set the value of blacklists.
+     *
+     * @param array $blacklists
+     *
+     * @return static
+     */
+    public function setBlacklists($blacklists)
+    {
+        $this->blacklists = $blacklists;
+
+        return $this;
+    }
 
     /**
      * Returns the MaximumLength value.
@@ -281,6 +372,24 @@ class Password extends ValidatorChain
      */
     public function isValid($value, $context = null)
     {
+        if (count($this->blacklists) > 0) {
+            $validator = new NotInArray(
+                [
+                    'haystack'         => $this->blacklists,
+                    'messageTemplates' => [
+                        NotInArray::IN_ARRAY => $this->messageTemplates[self::NOT_ALLOWED]
+                    ]
+                ]
+            );
+
+            if (!$validator->isValid(strtolower($value))) {
+                $messages       = $validator->getMessages();
+                $this->messages = array_replace_recursive($this->messages, $messages);
+
+                return false;
+            }
+        }
+
         $this->validators = new PriorityQueue();
 
         /**
