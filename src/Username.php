@@ -42,6 +42,13 @@ class Username extends ValidatorChain
      *
      * @return string
      */
+    const NOT_ALLOWED = 'usernameNotAllowed';
+
+    /**
+     *
+     *
+     * @return string
+     */
     const ALPHA = 'a-z';
 
     /**
@@ -72,6 +79,7 @@ class Username extends ValidatorChain
      */
     protected $messageTemplates = [
         self::INVALID                    => 'Invalid value. String expected',
+        self::NOT_ALLOWED                => 'The username provided contains words that are not allowed',
         Alnum::INVALID                   => 'Invalid username. Username must be alpha numeric!',
         RegexValidator::NOT_MATCH        => 'The username provided contains characters that are not allowed',
         StringLengthValidator::TOO_SHORT => 'Username need to have at least %min% characters!',
@@ -101,26 +109,57 @@ class Username extends ValidatorChain
      *
      * @return int
      */
-    protected $maximumLength = 255;
+    protected $maximumLength = 64;
 
     /**
      *
      *
      * @return string
      */
-    protected $encoding = 'ascii';
+    protected $encoding = 'UTF-8';
 
     /**
      *
      *
      * @return string
      */
-    protected $pattern = '/^([a-z0-9])([a-z0-9_\-\.~!#\$&\'\*\+=\?]+)$/i';
+    protected $pattern = '/^([a-z0-9])([a-zA-Z0-9_\-\.~]+)$/';
+
+    /**
+     *
+     *
+     * @return array
+     */
+    protected $blacklists = [];
+
+    /**
+     * Returns the value of blacklists.
+     *
+     * @return array
+     */
+    public function getBlacklists()
+    {
+        return $this->blacklists;
+    }
+
+    /**
+     * Set the value of blacklists.
+     *
+     * @param array $blacklists
+     *
+     * @return static
+     */
+    public function setBlacklists($blacklists)
+    {
+        $this->blacklists = $blacklists;
+
+        return $this;
+    }
 
     /**
      * Returns the value of pattern.
      *
-     * @return mixed
+     * @return string
      */
     public function getPattern()
     {
@@ -130,7 +169,7 @@ class Username extends ValidatorChain
     /**
      * Set the value of pattern.
      *
-     * @param mixed $pattern
+     * @param string $pattern
      *
      * @return static
      */
@@ -161,11 +200,6 @@ class Username extends ValidatorChain
      */
     public function setEncoding($encoding)
     {
-        // TODO: Disable hard coded
-        if (strtolower($encoding) !== 'ascii') {
-            $encoding = 'ascii';
-        }
-
         $this->encoding = $encoding;
 
         return $this;
@@ -255,6 +289,26 @@ class Username extends ValidatorChain
      */
     public function isValid($value, $context = null)
     {
+        $value = mb_convert_encoding($value, $this->encoding);
+
+        if (count($this->blacklists) > 0) {
+            $validator = new NotInArray(
+                [
+                    'haystack'         => $this->blacklists,
+                    'messageTemplates' => [
+                        NotInArray::IN_ARRAY => self::NOT_ALLOWED
+                    ]
+                ]
+            );
+
+            if (!$validator->isValid(strtolower($value))) {
+                $messages       = $validator->getMessages();
+                $this->messages = array_replace_recursive($this->messages, $messages);
+
+                return false;
+            }
+        }
+
         $this->validators = new PriorityQueue();
 
         $this->attach(
@@ -262,6 +316,7 @@ class Username extends ValidatorChain
                 [
                     'min'              => $this->minimalLength,
                     'max'              => $this->maximumLength,
+                    'encoding'         => $this->encoding,
                     'messageTemplates' => [
                         self::INVALID                    => $this->messageTemplates[self::INVALID],
                         StringLengthValidator::TOO_SHORT => $this->messageTemplates[StringLengthValidator::TOO_SHORT],
@@ -290,7 +345,8 @@ class Username extends ValidatorChain
                     [
                         'messageTemplates' => [
                             Alnum::INVALID => $this->messageTemplates[Alnum::INVALID]
-                        ]
+                        ],
+                        'allowWhiteSpace'  => false
                     ]
                 )
             );
