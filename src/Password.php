@@ -65,11 +65,19 @@ class Password extends ValidatorChain
     const NOT_ALLOWED = 'notAllowed';
 
     /**
+     *
+     *
+     * @var string
+     */
+    const ERROROUS = 'error';
+
+    /**
      * Error Message Templates
      *
      * @var array
      */
     protected $messageTemplates = [
+        self::ERROROUS                   => 'There was an internal error while validating your password',
         self::NOT_ALLOWED                => 'The password provided contains words that are not allowed',
         self::UPPER_NOT_CONTAIN          => 'Password must include at least one uppercase letter!',
         self::LOWER_NOT_CONTAIN          => 'Password must include at least one lowercase letter!',
@@ -424,7 +432,8 @@ class Password extends ValidatorChain
                     [
                         'pattern'          => '$\S*(?=\S*[a-z])\S*$',
                         'messageTemplates' => [
-                            RegexValidator::NOT_MATCH => $this->messageTemplates[self::LOWER_NOT_CONTAIN]
+                            RegexValidator::NOT_MATCH => $this->messageTemplates[self::LOWER_NOT_CONTAIN],
+                            RegexValidator::ERROROUS => $this->messageTemplates[self::ERROROUS]
                         ]
                     ]
                 ),
@@ -438,7 +447,8 @@ class Password extends ValidatorChain
                     [
                         'pattern'          => '$\S*(?=\S*[A-Z])\S*$',
                         'messageTemplates' => [
-                            RegexValidator::NOT_MATCH => $this->messageTemplates[self::UPPER_NOT_CONTAIN]
+                            RegexValidator::NOT_MATCH => $this->messageTemplates[self::UPPER_NOT_CONTAIN],
+                            RegexValidator::ERROROUS => $this->messageTemplates[self::ERROROUS]
                         ]
                     ]
                 ),
@@ -452,7 +462,8 @@ class Password extends ValidatorChain
                     [
                         'pattern'          => '$\S*(?=\S*[0-9])\S*$',
                         'messageTemplates' => [
-                            RegexValidator::NOT_MATCH => $this->messageTemplates[self::DIGIT_NOT_CONTAIN]
+                            RegexValidator::NOT_MATCH => $this->messageTemplates[self::DIGIT_NOT_CONTAIN],
+                            RegexValidator::ERROROUS => $this->messageTemplates[self::ERROROUS]
                         ]
                     ]
                 ),
@@ -466,7 +477,8 @@ class Password extends ValidatorChain
                     [
                         'pattern'          => '$\S*(?=\S*[`~!@#\\$%^&*\(\)_\-=+\[\]{\}\\|:;\'",<.>/?])\S*$',
                         'messageTemplates' => [
-                            RegexValidator::NOT_MATCH => $this->messageTemplates[self::SYMBOL_NOT_CONTAIN]
+                            RegexValidator::NOT_MATCH => $this->messageTemplates[self::SYMBOL_NOT_CONTAIN],
+                            RegexValidator::ERROROUS => $this->messageTemplates[self::ERROROUS]
                         ]
                     ]
                 ),

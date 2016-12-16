@@ -73,11 +73,19 @@ class Username extends ValidatorChain
     const SYMBOL_RESERVED = '!#\$&\'\*\+=\?';
 
     /**
+     *
+     *
+     * @var string
+     */
+    const ERROROUS = 'error';
+
+    /**
      * Error Message Templates.
      *
      * @var array
      */
     protected $messageTemplates = [
+        self::ERROROUS                   => 'There was an internal error while validating your username'
         self::INVALID                    => 'Invalid value. String expected',
         self::NOT_ALLOWED                => 'The username provided contains words that are not allowed',
         Alnum::INVALID                   => 'Invalid username. Username must be alpha numeric!',
@@ -370,7 +378,8 @@ class Username extends ValidatorChain
                         'pattern'          => $this->pattern,
                         'messageTemplates' => [
                             RegexValidator::INVALID   => $this->messageTemplates[self::INVALID],
-                            RegexValidator::NOT_MATCH => $this->messageTemplates[RegexValidator::NOT_MATCH]
+                            RegexValidator::NOT_MATCH => $this->messageTemplates[RegexValidator::NOT_MATCH],
+                            RegexValidator::ERROROUS => $this->messageTemplates[self::ERROROUS]
                         ]
                     ]
                 )
