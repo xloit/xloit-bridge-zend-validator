@@ -39,7 +39,7 @@ class NotInArray extends InArray
      * @var array
      */
     protected $messageTemplates = [
-        self::IN_ARRAY => 'The input was found in the haystack',
+        self::IN_ARRAY => 'The input was found in the haystack'
     ];
 
     /**

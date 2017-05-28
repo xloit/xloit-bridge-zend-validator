@@ -29,11 +29,11 @@ class Module
                 'aliases'   => [
                     'consonant'            => Consonant::class,
                     'Consonant'            => Consonant::class,
-                    'ein'                  => Ein::class,
-                    'Ein'                  => Ein::class,
                     'dateage'              => DateAge::class,
                     'dateAge'              => DateAge::class,
                     'DateAge'              => DateAge::class,
+                    'ein'                  => Ein::class,
+                    'Ein'                  => Ein::class,
                     'foldername'           => FolderName::class,
                     'folderName'           => FolderName::class,
                     'FolderName'           => FolderName::class,

@@ -200,69 +200,70 @@ class RoutingTransitNumber extends AbstractValidator
             return false;
         }
 
-        if ($country === 'US') {
-            if (strlen($value) < 9) {
-                $this->error(self::TOO_SHORT);
+        $aba = false;
 
-                return false;
-            }
+        switch ($country) {
+            case 'US':
+                if (strlen($value) < 9) {
+                    $this->error(self::TOO_SHORT);
 
-            if (strlen($value) > 9) {
-                $this->error(self::TOO_LONG);
-
-                return false;
-            }
-
-            $aba   = (int) substr($value, 0, 2);
-            $found = false;
-
-            foreach ($this->aba['US'] as $check) {
-                if ($aba >= $check[0] && $aba <= $check[1]) {
-                    $found = true;
+                    return false;
                 }
+
+                if (strlen($value) > 9) {
+                    $this->error(self::TOO_LONG);
+
+                    return false;
+                }
+
+                $aba = (int) substr($value, 0, 2);
+                break;
+            case 'CA':
+                if (strlen($value) < 8) {
+                    $this->error(self::TOO_SHORT);
+
+                    return false;
+                }
+
+                if (strlen($value) > 8) {
+                    $this->error(self::TOO_LONG);
+
+                    return false;
+                }
+
+                $aba = (int) substr($value, -3);
+                break;
+        }
+
+        if (!is_int($aba)) {
+            $this->error(self::UNSUPPORTED);
+
+            return false;
+        }
+
+        /** @var array $abaLists */
+        $abaLists = $this->aba[$country];
+        $found    = false;
+
+        foreach ($abaLists as $check) {
+            if ($aba >= $check[0] && $aba <= $check[1]) {
+                $found = true;
             }
+        }
 
-            if (!$found) {
-                $this->error(self::NO_MATCH);
+        if (!$found) {
+            $this->error(self::NO_MATCH);
 
-                return false;
-            }
+            return false;
+        }
 
+        if ($country === 'US') {
             /** @var string $value */
             $checksum = 7 * ($value[0] + $value[3] + $value[6]);
             $checksum += 3 * ($value[1] + $value[4] + $value[7]);
             $checksum += 9 * ($value[2] + $value[5]);
 
             if ($value[8] !== $checksum % 10) {
-                $this->error(self::NO_MATCH);
-
-                return false;
-            }
-        }
-
-        if ($country === 'CA') {
-            if (strlen($value) < 8) {
-                $this->error(self::TOO_SHORT);
-
-                return false;
-            }
-
-            if (strlen($value) > 8) {
-                $this->error(self::TOO_LONG);
-
-                return false;
-            }
-
-            $aba   = (int) substr($value, -3);
-            $found = false;
-
-            foreach ($this->aba['CA'] as $check) {
-                if ($aba >= $check[0] && $aba <= $check[1]) {
-                    $found = true;
-                }
-            }
-
-            if (!$found) {
                 $this->error(self::NO_MATCH);
 
                 return false;
