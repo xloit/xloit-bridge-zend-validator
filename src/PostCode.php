@@ -65,30 +65,6 @@ class PostCode extends ZfPostCode
     protected $country;
 
     /**
-     * Returns the value of country.
-     *
-     * @return string
-     */
-    public function getCountry()
-    {
-        return $this->country;
-    }
-
-    /**
-     * Set the value of country.
-     *
-     * @param  string $country
-     *
-     * @return PostCode
-     */
-    public function setCountry($country)
-    {
-        $this->country = $country;
-
-        return $this;
-    }
-
-    /**
      * Constructor for the {@link PostCode} validator.
      *
      * @param array|Traversable $options
@@ -110,10 +86,34 @@ class PostCode extends ZfPostCode
     }
 
     /**
+     * Returns the value of country.
+     *
+     * @return string
+     */
+    public function getCountry()
+    {
+        return $this->country;
+    }
+
+    /**
+     * Set the value of country.
+     *
+     * @param string $country
+     *
+     * @return $this
+     */
+    public function setCountry($country)
+    {
+        $this->country = $country;
+
+        return $this;
+    }
+
+    /**
      * Returns true if and only if $value matches post code format.
      *
-     * @param  string $value
-     * @param  array  $context
+     * @param string $value
+     * @param array  $context
      *
      * @return bool
      */

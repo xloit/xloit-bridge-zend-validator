@@ -130,7 +130,7 @@ class Ein extends Regex
     /**
      * Constructor to prevent {@link Ein} from being loaded more than once.
      *
-     * @param  array|\Traversable|string $config
+     * @param array|\Traversable|string $config
      *
      * @throws \Zend\Validator\Exception\InvalidArgumentException
      */
@@ -146,7 +146,7 @@ class Ein extends Regex
      *
      * TODO: port php-iban library for more complete validation
      *
-     * @param  string $value
+     * @param string $value
      *
      * @return bool
      */

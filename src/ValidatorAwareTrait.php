@@ -48,7 +48,7 @@ trait ValidatorAwareTrait
      *
      * @param ValidatorInterface $validator
      *
-     * @return static
+     * @return $this
      */
     public function setValidator(ValidatorInterface $validator)
     {

@@ -85,7 +85,7 @@ class Username extends ValidatorChain
      * @var array
      */
     protected $messageTemplates = [
-        self::ERROROUS                   => 'There was an internal error while validating your username'
+        self::ERROROUS                   => 'There was an internal error while validating your username',
         self::INVALID                    => 'Invalid value. String expected',
         self::NOT_ALLOWED                => 'The username provided contains words that are not allowed',
         Alnum::INVALID                   => 'Invalid username. Username must be alpha numeric!',
@@ -131,7 +131,7 @@ class Username extends ValidatorChain
      *
      * @return string
      */
-    protected $pattern = '/^([a-z0-9])([a-zA-Z0-9_\-\.~]+)$/';
+    protected $pattern = '/^([a-z0-9])([a-zA-Z0-9_\-.~]+)$/';
 
     /**
      *
@@ -191,7 +191,7 @@ class Username extends ValidatorChain
      *
      * @param array $blacklists
      *
-     * @return static
+     * @return $this
      */
     public function setBlacklists($blacklists)
     {
@@ -215,7 +215,7 @@ class Username extends ValidatorChain
      *
      * @param string $pattern
      *
-     * @return static
+     * @return $this
      */
     public function setPattern($pattern)
     {
@@ -226,7 +226,6 @@ class Username extends ValidatorChain
 
     /**
      * Returns the value of encoding option.
-     *
      *
      * @return string
      */
@@ -240,7 +239,7 @@ class Username extends ValidatorChain
      *
      * @param string $encoding
      *
-     * @return static
+     * @return $this
      */
     public function setEncoding($encoding)
     {
@@ -252,7 +251,7 @@ class Username extends ValidatorChain
     /**
      *
      *
-     * @return mixed
+     * @return int
      */
     public function getMinimalLength()
     {
@@ -262,10 +261,10 @@ class Username extends ValidatorChain
     /**
      *
      *
-     * @param mixed $minimalLength
+     * @param int $minimalLength
      *
-     * @return static
-     * @throws Exception\InvalidArgumentException
+     * @return $this
+     * @throws \Xloit\Bridge\Zend\Validator\Exception\InvalidArgumentException
      */
     public function setMinimalLength($minimalLength)
     {
@@ -287,7 +286,7 @@ class Username extends ValidatorChain
     /**
      *
      *
-     * @return mixed
+     * @return int
      */
     public function getMaximumLength()
     {
@@ -297,10 +296,10 @@ class Username extends ValidatorChain
     /**
      *
      *
-     * @param mixed $maximumLength
+     * @param int $maximumLength
      *
-     * @return static
-     * @throws Exception\InvalidArgumentException
+     * @return $this
+     * @throws \Xloit\Bridge\Zend\Validator\Exception\InvalidArgumentException
      */
     public function setMaximumLength($maximumLength)
     {
@@ -324,12 +323,12 @@ class Username extends ValidatorChain
      * If $value fails validation, then this method returns false, and getMessages() will return an array of
      * messages that explain why the validation failed.
      *
-     * @param  mixed $value
-     * @param  mixed $context
+     * @param mixed $value
+     * @param mixed $context
      *
+     * @return bool
      * @throws \Zend\Validator\Exception\InvalidArgumentException
      * @throws \Zend\Validator\Exception\RuntimeException
-     * @return bool
      */
     public function isValid($value, $context = null)
     {
@@ -379,7 +378,7 @@ class Username extends ValidatorChain
                         'messageTemplates' => [
                             RegexValidator::INVALID   => $this->messageTemplates[self::INVALID],
                             RegexValidator::NOT_MATCH => $this->messageTemplates[RegexValidator::NOT_MATCH],
-                            RegexValidator::ERROROUS => $this->messageTemplates[self::ERROROUS]
+                            RegexValidator::ERROROUS  => $this->messageTemplates[self::ERROROUS]
                         ]
                     ]
                 )

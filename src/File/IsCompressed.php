@@ -31,10 +31,10 @@ class IsCompressed extends AbstractIsCompressed
     /**
      * Returns true if the mimetype of the file matches compressed type.
      *
-     * @param  string|array $value Real file to check
-     * @param  array        $file  File data from \Zend\File\Transfer\Transfer (optional)
+     * @param string|array $value Real file to check.
+     * @param array        $file  File data from {@link \Zend\File\Transfer\Transfer} (optional).
      *
-     * @return boolean
+     * @return bool
      */
     public function isValid($value, $file = null)
     {

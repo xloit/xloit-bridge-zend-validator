@@ -38,7 +38,7 @@ interface ValidatorAwareInterface
      *
      * @param ValidatorInterface $validator
      *
-     * @return static
+     * @return $this
      */
     public function setValidator(ValidatorInterface $validator);
 }

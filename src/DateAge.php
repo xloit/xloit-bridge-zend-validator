@@ -30,7 +30,7 @@ use Zend\Validator\Date as AbstractDate;
 class DateAge extends AbstractDate
 {
     /**#@+
-     * Validity constants
+     * Validity constants.
      *
      * @var string
      */
@@ -39,7 +39,7 @@ class DateAge extends AbstractDate
     /**#@-*/
 
     /**
-     * Validation failure message template definitions
+     * Validation failure message template definitions.
      *
      * @var array
      */
@@ -102,7 +102,7 @@ class DateAge extends AbstractDate
      *
      * @param int $minimum
      *
-     * @return static
+     * @return $this
      */
     public function setMinimum($minimum)
     {
@@ -114,9 +114,8 @@ class DateAge extends AbstractDate
     /**
      * Returns true if and only if $value matches iban format.
      *
-     *
-     * @param  string $value
-     * @param  array  $context
+     * @param string $value
+     * @param array  $context
      *
      * @return bool
      */

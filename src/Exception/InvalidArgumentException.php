@@ -20,7 +20,7 @@ namespace Xloit\Bridge\Zend\Validator\Exception;
 use Xloit\Exception\Logic\InvalidArgumentException as AbstractInvalidArgumentException;
 
 /**
- * An {@link InvalidArgumentException} class
+ * An {@link InvalidArgumentException} class.
  *
  * @package Xloit\Bridge\Zend\Validator\Exception
  */

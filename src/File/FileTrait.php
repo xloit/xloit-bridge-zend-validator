@@ -27,14 +27,14 @@ trait FileTrait
     /**
      *
      *
-     * @var boolean
+     * @var bool
      */
     protected $allowEmpty = false;
 
     /**
      *
      *
-     * @return boolean
+     * @return bool
      */
     public function isAllowEmpty()
     {
@@ -44,9 +44,9 @@ trait FileTrait
     /**
      *
      *
-     * @param boolean $allowEmpty
+     * @param bool $allowEmpty
      *
-     * @return static
+     * @return $this
      */
     public function setAllowEmpty($allowEmpty)
     {
@@ -58,10 +58,10 @@ trait FileTrait
     /**
      * Indicates whether the file is defined.
      *
-     * @param  string|array $value Real file to check
-     * @param  array        $file  File data from \Zend\File\Transfer\Transfer (optional)
+     * @param string|array $value Real file to check.
+     * @param array        $file  File data from {@link \Zend\File\Transfer\Transfer} (optional).
      *
-     * @return boolean
+     * @return bool
      */
     protected function isFileEmpty($value, $file = null)
     {

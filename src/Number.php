@@ -27,7 +27,7 @@ use Zend\Validator\Digits;
 class Number extends Digits
 {
     /**
-     * Returns true if and only if $value only contains digit characters
+     * Returns true if and only if $value only contains digit characters.
      *
      * @param int|float|string $value
      *

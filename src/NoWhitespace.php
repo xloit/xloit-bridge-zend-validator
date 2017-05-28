@@ -36,7 +36,7 @@ class NoWhitespace extends Regex
     /**
      * Constructor to prevent {@link NoWhitespace} from being loaded more than once.
      *
-     * @param  array|\Traversable|string $config
+     * @param array|\Traversable|string $config
      *
      * @throws \Zend\Validator\Exception\InvalidArgumentException
      */
@@ -53,7 +53,6 @@ class NoWhitespace extends Regex
      * @param mixed $value
      *
      * @return bool
-     * @throws \ErrorException
      */
     public function isValid($value)
     {

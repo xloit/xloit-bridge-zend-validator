@@ -31,10 +31,10 @@ class IsImage extends AbstractIsImage
     /**
      * Returns true if and only if the file input is an image.
      *
-     * @param  string|array $value Real file to check
-     * @param  array        $file  File data from \Zend\File\Transfer\Transfer (optional)
+     * @param string|array $value Real file to check.
+     * @param array        $file  File data from {@link \Zend\File\Transfer\Transfer} (optional).
      *
-     * @return boolean
+     * @return bool
      */
     public function isValid($value, $file = null)
     {

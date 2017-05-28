@@ -152,7 +152,7 @@ class Iban extends AbstractValidator
         ],
         'FR' => [
             'bban' => '/^([0-9]{5})([0-9]{5})([A-Za-z0-9]{11})([0-9]{2})$/',
-            'iban' => '/^(FR|GF|GP|MQ|RE|PF|TF|YT|NC|BL|MF|PM|WF|GP|RE|MQ|GF|PM|YT)([0-9]{2})([0-9]{5})([0-9]{5})([A-Za-z0-9]{11})([0-9]{2})$/'
+            'iban' => '/^(FR|GF|MQ|RE|PF|TF|YT|NC|BL|MF|PM|WF|GP)([0-9]{2})([0-9]{5})([0-9]{5})([A-Za-z0-9]{11})([0-9]{2})$/'
         ],
         'GB' => [
             'bban' => '/^([A-Z]{4})([0-9]{6})([0-9]{8})$/',
@@ -361,9 +361,9 @@ class Iban extends AbstractValidator
     /**
      * Allow Bban.
      *
-     * @param  bool $allow
+     * @param bool $allow
      *
-     * @return bool|static
+     * @return $this|bool
      */
     public function allowBban($allow = null)
     {
@@ -389,9 +389,9 @@ class Iban extends AbstractValidator
     /**
      * Set Country.
      *
-     * @param  string $country
+     * @param string $country
      *
-     * @return Iban
+     * @return $this
      */
     public function setCountry($country)
     {
@@ -403,8 +403,8 @@ class Iban extends AbstractValidator
     /**
      * Returns true if and only if $value matches iban format.
      *
-     * @param  string $value
-     * @param  array  $context
+     * @param string $value
+     * @param array  $context
      *
      * @return bool
      */

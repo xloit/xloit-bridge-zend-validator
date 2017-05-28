@@ -36,7 +36,7 @@ class FileName extends Regex
     /**
      * Constructor to prevent {@link FileName} from being loaded more than once.
      *
-     * @param  array|\Traversable|string $config
+     * @param array|\Traversable|string $config
      *
      * @throws \Zend\Validator\Exception\InvalidArgumentException
      */

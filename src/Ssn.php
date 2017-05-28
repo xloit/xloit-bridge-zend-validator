@@ -74,7 +74,7 @@ class Ssn extends AbstractValidator
      *
      * TODO: port php-iban library for more complete validation
      *
-     * @param  string $value
+     * @param string $value
      *
      * @return bool
      */
@@ -107,6 +107,7 @@ class Ssn extends AbstractValidator
         }
 
         // no digit group can be all 0's
+        /** @var array $matches */
         foreach ($matches as $match) {
             if (0 === (int) $match) {
                 $this->error(self::NO_MATCH);

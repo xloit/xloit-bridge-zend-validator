@@ -33,10 +33,10 @@ class MimeType extends AbstractMimeType
      * checked. If you give for example "image" all image mime types will be accepted like "image/gif",
      * "image/jpeg" and so on.
      *
-     * @param  string|array $value Real file to check
-     * @param  array        $file  File data from \Zend\File\Transfer\Transfer (optional)
+     * @param string|array $value Real file to check.
+     * @param array        $file  File data from {@link \Zend\File\Transfer\Transfer} (optional).
      *
-     * @return boolean
+     * @return bool
      */
     public function isValid($value, $file = null)
     {

@@ -51,7 +51,7 @@ class Luhn extends AbstractValidator
     /**
      * Returns true if and only if $value matches luhn algorithm.
      *
-     * @param  string $value
+     * @param string $value
      *
      * @return bool
      */

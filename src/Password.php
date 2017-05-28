@@ -104,28 +104,28 @@ class Password extends ValidatorChain
     /**
      *
      *
-     * @return boolean
+     * @return bool
      */
     protected $enableLowercase = true;
 
     /**
      *
      *
-     * @return boolean
+     * @return bool
      */
     protected $enableUppercase = true;
 
     /**
      *
      *
-     * @return boolean
+     * @return bool
      */
     protected $enableDigit = true;
 
     /**
      *
      *
-     * @return boolean
+     * @return bool
      */
     protected $enableSymbol = true;
 
@@ -203,7 +203,7 @@ class Password extends ValidatorChain
      *
      * @param array $blacklists
      *
-     * @return static
+     * @return $this
      */
     public function setBlacklists($blacklists)
     {
@@ -215,7 +215,7 @@ class Password extends ValidatorChain
     /**
      * Returns the MaximumLength value.
      *
-     * @return mixed
+     * @return int
      */
     public function getMaximumLength()
     {
@@ -225,10 +225,10 @@ class Password extends ValidatorChain
     /**
      * Sets the MaximumLength value.
      *
-     * @param mixed $maximumLength
+     * @param int $maximumLength
      *
-     * @return self
-     * @throws Exception\InvalidArgumentException
+     * @return $this
+     * @throws \Xloit\Bridge\Zend\Validator\Exception\InvalidArgumentException
      */
     public function setMaximumLength($maximumLength)
     {
@@ -244,7 +244,7 @@ class Password extends ValidatorChain
     /**
      * Returns the MinimalLength value.
      *
-     * @return mixed
+     * @return int
      */
     public function getMinimalLength()
     {
@@ -254,10 +254,10 @@ class Password extends ValidatorChain
     /**
      * Sets the MinimalLength value.
      *
-     * @param mixed $minimalLength
+     * @param int $minimalLength
      *
-     * @return self
-     * @throws Exception\InvalidArgumentException
+     * @return $this
+     * @throws \Xloit\Bridge\Zend\Validator\Exception\InvalidArgumentException
      */
     public function setMinimalLength($minimalLength)
     {
@@ -271,9 +271,9 @@ class Password extends ValidatorChain
     }
 
     /**
-     * Returns the EnableDigit value
+     * Returns the EnableDigit value.
      *
-     * @return mixed
+     * @return bool
      */
     public function isEnableDigit()
     {
@@ -281,11 +281,11 @@ class Password extends ValidatorChain
     }
 
     /**
-     * Sets the EnableDigit value
+     * Sets the EnableDigit value.
      *
-     * @param mixed $enableDigit
+     * @param bool $enableDigit
      *
-     * @return static
+     * @return $this
      */
     public function setEnableDigit($enableDigit)
     {
@@ -295,9 +295,9 @@ class Password extends ValidatorChain
     }
 
     /**
-     * Returns the EnableLowercase value
+     * Returns the EnableLowercase value.
      *
-     * @return mixed
+     * @return bool
      */
     public function isEnableLowercase()
     {
@@ -305,11 +305,11 @@ class Password extends ValidatorChain
     }
 
     /**
-     * Sets the EnableLowercase value
+     * Sets the EnableLowercase value.
      *
-     * @param mixed $enableLowercase
+     * @param bool $enableLowercase
      *
-     * @return static
+     * @return $this
      */
     public function setEnableLowercase($enableLowercase)
     {
@@ -319,9 +319,9 @@ class Password extends ValidatorChain
     }
 
     /**
-     * Returns the EnableUppercase value
+     * Returns the EnableUppercase value.
      *
-     * @return mixed
+     * @return bool
      */
     public function isEnableUppercase()
     {
@@ -329,11 +329,11 @@ class Password extends ValidatorChain
     }
 
     /**
-     * Sets the EnableUppercase value
+     * Sets the EnableUppercase value.
      *
-     * @param mixed $enableUppercase
+     * @param bool $enableUppercase
      *
-     * @return static
+     * @return $this
      */
     public function setEnableUppercase($enableUppercase)
     {
@@ -345,7 +345,7 @@ class Password extends ValidatorChain
     /**
      *
      *
-     * @return mixed
+     * @return bool
      */
     public function isEnableSymbol()
     {
@@ -355,9 +355,9 @@ class Password extends ValidatorChain
     /**
      *
      *
-     * @param mixed $enableSymbol
+     * @param bool $enableSymbol
      *
-     * @return static
+     * @return $this
      */
     public function setEnableSymbol($enableSymbol)
     {
@@ -371,12 +371,12 @@ class Password extends ValidatorChain
      * If $value fails validation, then this method returns false, and getMessages() will return an array of messages
      * that explain why the validation failed.
      *
-     * @param  mixed $value
-     * @param  mixed $context
+     * @param mixed $value
+     * @param mixed $context
      *
+     * @return bool
      * @throws \Zend\Validator\Exception\InvalidArgumentException
      * @throws \Zend\Validator\Exception\RuntimeException
-     * @return bool
      */
     public function isValid($value, $context = null)
     {
@@ -433,7 +433,7 @@ class Password extends ValidatorChain
                         'pattern'          => '$\S*(?=\S*[a-z])\S*$',
                         'messageTemplates' => [
                             RegexValidator::NOT_MATCH => $this->messageTemplates[self::LOWER_NOT_CONTAIN],
-                            RegexValidator::ERROROUS => $this->messageTemplates[self::ERROROUS]
+                            RegexValidator::ERROROUS  => $this->messageTemplates[self::ERROROUS]
                         ]
                     ]
                 ),
@@ -448,7 +448,7 @@ class Password extends ValidatorChain
                         'pattern'          => '$\S*(?=\S*[A-Z])\S*$',
                         'messageTemplates' => [
                             RegexValidator::NOT_MATCH => $this->messageTemplates[self::UPPER_NOT_CONTAIN],
-                            RegexValidator::ERROROUS => $this->messageTemplates[self::ERROROUS]
+                            RegexValidator::ERROROUS  => $this->messageTemplates[self::ERROROUS]
                         ]
                     ]
                 ),
@@ -463,7 +463,7 @@ class Password extends ValidatorChain
                         'pattern'          => '$\S*(?=\S*[0-9])\S*$',
                         'messageTemplates' => [
                             RegexValidator::NOT_MATCH => $this->messageTemplates[self::DIGIT_NOT_CONTAIN],
-                            RegexValidator::ERROROUS => $this->messageTemplates[self::ERROROUS]
+                            RegexValidator::ERROROUS  => $this->messageTemplates[self::ERROROUS]
                         ]
                     ]
                 ),
@@ -478,7 +478,7 @@ class Password extends ValidatorChain
                         'pattern'          => '$\S*(?=\S*[`~!@#\\$%^&*\(\)_\-=+\[\]{\}\\|:;\'",<.>/?])\S*$',
                         'messageTemplates' => [
                             RegexValidator::NOT_MATCH => $this->messageTemplates[self::SYMBOL_NOT_CONTAIN],
-                            RegexValidator::ERROROUS => $this->messageTemplates[self::ERROROUS]
+                            RegexValidator::ERROROUS  => $this->messageTemplates[self::ERROROUS]
                         ]
                     ]
                 ),

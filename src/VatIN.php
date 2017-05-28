@@ -214,9 +214,9 @@ class VatIN extends AbstractValidator
     /**
      * Set the value of country.
      *
-     * @param  string $country
+     * @param string $country
      *
-     * @return Iban
+     * @return $this
      */
     public function setCountry($country)
     {
@@ -228,8 +228,8 @@ class VatIN extends AbstractValidator
     /**
      * Returns true if and only if $value matches iban format.
      *
-     * @param  string $value
-     * @param  array  $context
+     * @param string $value
+     * @param array  $context
      *
      * @return bool
      * @throws \Zend\Soap\Exception\ExtensionNotLoadedException

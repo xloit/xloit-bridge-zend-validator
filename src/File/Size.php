@@ -32,10 +32,10 @@ class Size extends AbstractSize
      * Returns true if and only if the file size of $value is at least min and not bigger than max
      * (when max is not null).
      *
-     * @param  string|array $value Real file to check
-     * @param  array        $file  File data from \Zend\File\Transfer\Transfer (optional)
+     * @param string|array $value Real file to check.
+     * @param array        $file  File data from {@link \Zend\File\Transfer\Transfer} (optional).
      *
-     * @return boolean
+     * @return bool
      */
     public function isValid($value, $file = null)
     {

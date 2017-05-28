@@ -92,7 +92,7 @@ class IataAirlineCode extends Regex
      * If $value fails validation, then this method returns false, and getMessages() will return an array of messages
      * that explain why the validation failed.
      *
-     * @param  mixed $value
+     * @param mixed $value
      *
      * @return bool
      */

@@ -87,7 +87,6 @@ class Swift extends AbstractValidator
     /**
      * Returns the value of country.
      *
-     *
      * @return string
      */
     public function getCountry()
@@ -98,10 +97,9 @@ class Swift extends AbstractValidator
     /**
      * Set the value of country.
      *
+     * @param string $country
      *
-     * @param  string $country
-     *
-     * @return Iban
+     * @return $this
      */
     public function setCountry($country)
     {
@@ -113,9 +111,8 @@ class Swift extends AbstractValidator
     /**
      * Returns true if and only if $value matches iban format.
      *
-     *
-     * @param  string $value
-     * @param  array  $context
+     * @param string $value
+     * @param array  $context
      *
      * @return bool
      */
